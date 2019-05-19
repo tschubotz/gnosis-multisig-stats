@@ -19,7 +19,7 @@ from web3 import Web3, HTTPProvider
 
 def get_info_for_address(address, web3=None):
     if not web3:
-        web3 = Web3(HTTPProvider('https://mainnet.infura.io/' + INFURA_API_KEY))
+        web3 = Web3(HTTPProvider('https://mainnet.infura.io/v3/' + INFURA_API_KEY))
 
     eth_balance = Web3.fromWei(web3.eth.getBalance(address), 'ether')
 
@@ -56,7 +56,7 @@ def main():
         column_names.append('%s (%s)' % (token['symbol'], token['name']))
 
     print(','.join(column_names))
-
+    # get_info_for_address(multisigs[0])
     with Pool(processes=NUM_PROCESSES) as pool:
         pool.map(get_info_for_address, multisigs)
 
